@@ -1,0 +1,140 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United Kingdom) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource1.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_HURTDLG DIALOGEX 0, 0, 159, 67
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,25,46,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,87,46,50,14
+    LTEXT           "Damage Multiplier",IDC_STATIC,23,17,57,8
+    EDITTEXT        IDC_EDIT1,95,15,42,14,ES_AUTOHSCROLL
+END
+
+IDD_HITDLG DIALOGEX 0, 0, 173, 122
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,16,97,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,97,96,50,14
+    LTEXT           "Force",IDC_STATIC,21,20,19,8
+    LTEXT           "Damage",IDC_STATIC,21,39,27,8
+    EDITTEXT        IDC_EDIT1,53,19,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,100,19,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,67,36,40,14,ES_AUTOHSCROLL
+    LTEXT           "Knockback",IDC_STATIC,18,59,34,8
+    LTEXT           "Scale",IDC_STATIC,23,76,18,8
+    EDITTEXT        IDC_EDIT4,56,55,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT5,67,74,40,14,ES_AUTOHSCROLL
+    CONTROL         "Fixed",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,102,57,33,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_HURTDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 154
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 60
+    END
+
+    IDD_HITDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 166
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 115
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_HURTDLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_HITDLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United Kingdom) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
