@@ -339,12 +339,12 @@ void Giraffe::Load(LPCSTR filepath)
 			std::getline(file, line);
 			dmg = std::stof(line);
 			//revert this once we have fixed all the old files
-			/*std::getline(file, line);
+			std::getline(file, line);
 			knk = std::stof(line);
 			std::getline(file, line);
 			scl = std::stof(line);
 			std::getline(file, line);
-			fix = std::stoi(line);*/
+			fix = std::stoi(line);
 
 			hit.push_back(HitCollider({ x, y }, r, { x2, y2 }, dmg, knk, scl, fix));
 		}
