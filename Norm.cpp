@@ -15,8 +15,6 @@ Norm::Norm(int width, int height) : Giraffe(width, height)
 std::vector<Vec2> Norm::GetPoints(int i)
 {
 	std::vector<Vec2> points;
-	Vec2 up = (Skeleton[i][0] - Skeleton[i][1]).Normalise();
-	Vec2 right = up.GetPerpendicular().Normalise();
 
 	Vec2 tailPerp = (Skeleton[i][2] - ControlPoints[i][1]).GetPerpendicular().Normalise();
 
@@ -67,3 +65,13 @@ std::vector<Vec2> Norm::GetPoints(int i)
 
 	return points;
 }
+
+void Norm::DrawOutline(HDC hdc, std::vector<POINT> points)
+{
+	Polyline(hdc, &points[0], 27);
+	PolyBezier(hdc, &points[26], 4);
+	Polyline(hdc, &points[29], 5);
+	PolyBezier(hdc, &points[33], 4);
+	Polyline(hdc, &points[36], 2);
+}
+

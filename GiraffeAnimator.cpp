@@ -5,6 +5,7 @@
 #include "GiraffeAnimator.h"
 #include "Giraffe.h"
 #include "Norm.h"
+#include "Robot.h"
 #include <Windows.h>
 #include <timeapi.h>
 #include <CommCtrl.h>
@@ -423,7 +424,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    SetFocus(frameBar);
 
 
-   myGiraffe = new Norm(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+   myGiraffe = new Robot(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
 
    selected = false;
    next = timeGetTime();

@@ -1,15 +1,14 @@
-#ifndef _NORM_H_
-#define _NORM_H_
+#ifndef _ROBOT_H_
+#define _ROBOT_H
 
 #include "Giraffe.h"
 
-class Norm : public Giraffe {
+class Robot : public Giraffe {
 public:
-	Norm(int width, int height);
+	Robot(int width, int height);
 private:
 	std::vector<Vec2> GetPoints(int i);
 	void DrawOutline(HDC hdc, std::vector<POINT> points);
 };
 
-
-#endif
+#endif // !_ROBOT_H_

@@ -55,12 +55,7 @@ void Giraffe::Draw(HDC hdc, BYTE flags, const RECT &clientRect)
 			points.push_back((Position + Scale * Vpoints[i]).ToPoint());
 		}
 
-		Polyline(hdc, &points[0], 27);
-		PolyBezier(hdc, &points[26], 4);
-		Polyline(hdc, &points[29], 5);
-		PolyBezier(hdc, &points[33], 4);
-		Polyline(hdc, &points[36], 2);
-		//PolyBezier(hdc, points, 38);
+		DrawOutline(hdc, points);
 	}
 	if (flags & DRAW_PREV) {
 		DisplayImage(hdc, clientRect);

@@ -48,6 +48,7 @@ public:
 
 protected:
 	virtual std::vector<Vec2> GetPoints(int i) = 0;
+	virtual void DrawOutline(HDC hdc, std::vector<POINT> points) = 0;
 	std::vector<std::vector<Vec2>> Skeleton;
 	std::vector<std::vector<Vec2>> ControlPoints;
 	std::vector<std::vector<HitCollider>> Hitboxes;
