@@ -85,7 +85,7 @@ void Giraffe::Serialize(LPCSTR filepath)
 		std::vector<Vec2> points = GetPoints(i);
 
 		file << "{{";
-		for (int p = 0; p < 38; ++p) {
+		for (int p = 0; p < points.size(); ++p) {
 			str = std::to_string(points[p].y);
 			if (str.find('.', 0) == std::string::npos) {
 				str += ".0f,";

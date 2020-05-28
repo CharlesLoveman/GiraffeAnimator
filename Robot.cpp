@@ -54,13 +54,11 @@ std::vector<Vec2> Robot::GetPoints(int i)
 	points.push_back(ControlPoints[i][10] + neckPerp * 0.15f);
 	points.push_back(Skeleton[i][7] + neckPerp * 0.15f);
 	points.push_back(Skeleton[i][7]);
-	
 	points.push_back(Skeleton[i][7] + headPerp * 0.2f);
 	points.push_back(Skeleton[i][8] + headPerp * 0.2f);
 	points.push_back(Skeleton[i][8] + headPerp * -0.2f);
 	points.push_back(Skeleton[i][7] + headPerp * -0.2f);
 	points.push_back(Skeleton[i][7]);
-
 	points.push_back(Skeleton[i][7] + neckPerp * -0.15f);
 	points.push_back(ControlPoints[i][10] + neckPerp * -0.15f);
 	points.push_back(ControlPoints[i][10]);
