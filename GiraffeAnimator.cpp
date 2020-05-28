@@ -423,8 +423,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    SetFocus(frameBar);
 
-
-   myGiraffe = new Robot(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+   switch (MessageBox(hWnd, L"Use Robot?", L"Class Select", MB_YESNO)) {
+   case IDYES:
+       myGiraffe = new Robot(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+       break;
+   default:
+       myGiraffe = new Norm(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+   }
+   
 
    selected = false;
    next = timeGetTime();
