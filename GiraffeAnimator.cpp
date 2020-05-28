@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "GiraffeAnimator.h"
 #include "Giraffe.h"
+#include "Norm.h"
 #include <Windows.h>
 #include <timeapi.h>
 #include <CommCtrl.h>
@@ -19,7 +20,7 @@
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
-Giraffe myGiraffe;                              // bet you cant figure this one out
+Giraffe* myGiraffe;                              // bet you cant figure this one out
 BYTE flags;
 RECT clientRect;
 bool selected;
@@ -422,7 +423,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    SetFocus(frameBar);
 
 
-   myGiraffe = Giraffe(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+   myGiraffe = new Norm(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
 
    selected = false;
    next = timeGetTime();
@@ -538,41 +539,41 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 InvalidateRect(hWnd, &clientRect, true);
                 break;
             case IDD_FWDBUTTON:
-                if (myGiraffe.NextFrame(hWnd, clientRect)) {
-                    SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe.GetMaxFrames());
+                if (myGiraffe->NextFrame(hWnd, clientRect)) {
+                    SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
                 }
-                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
                 InvalidateRect(hWnd, &clientRect, true);
                 break;
             case IDD_BCKBUTTON:
-                if (myGiraffe.PrevFrame(hWnd, clientRect)) {
-                    SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+                if (myGiraffe->PrevFrame(hWnd, clientRect)) {
+                    SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
                     InvalidateRect(hWnd, &clientRect, true);
                 }
                 break;
             case IDD_RSRTBUTTON:
-                myGiraffe.SetFrame(0);
+                myGiraffe->SetFrame(0);
                 SendMessageW(frameBar, TBM_SETPOS, true, 0);
                 InvalidateRect(hWnd, &clientRect, true);
                 break;
             case IDD_INSTBUTTON:
-                myGiraffe.InsertFrame(hWnd, clientRect);
-                SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe.GetMaxFrames());
-                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+                myGiraffe->InsertFrame(hWnd, clientRect);
+                SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
+                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
                 InvalidateRect(hWnd, &clientRect, true);
                 break;
             case IDD_DLTBUTTON:
-                myGiraffe.DeleteFrame();
-                SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe.GetMaxFrames());
-                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+                myGiraffe->DeleteFrame();
+                SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
+                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
                 InvalidateRect(hWnd, &clientRect, true);
                 break;
             /*case IDD_FLXBUTTON:
-                myGiraffe.FlipX();
+                myGiraffe->FlipX();
                 InvalidateRect(hWnd, &clientRect, true);
                 break;
             case IDD_FLYBUTTON:
-                myGiraffe.FlipY();
+                myGiraffe->FlipY();
                 InvalidateRect(hWnd, &clientRect, true);
                 break;*/
             case IDD_SAVEBUTTON:
@@ -611,7 +612,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         if (SUCCEEDED(hr))
                         {
                             USES_CONVERSION;
-                            myGiraffe.Save(OLE2CA(pwsz));
+                            myGiraffe->Save(OLE2CA(pwsz));
                             CoTaskMemFree(pwsz);
                         }
                     }
@@ -654,9 +655,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         if (SUCCEEDED(hr))
                         {
                             USES_CONVERSION;
-                            myGiraffe.Load(OLE2CA(pwsz));
+                            myGiraffe->Load(OLE2CA(pwsz));
                             CoTaskMemFree(pwsz);
-                            SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe.GetMaxFrames());
+                            SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
                             SendMessageW(frameBar, TBM_SETPOS, true, 0);
                             selected = false;
                             InvalidateRect(hWnd, &clientRect, true);
@@ -701,7 +702,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         if (SUCCEEDED(hr))
                         {
                             USES_CONVERSION;
-                            myGiraffe.Serialize(OLE2CA(pwsz));
+                            myGiraffe->Serialize(OLE2CA(pwsz));
                             CoTaskMemFree(pwsz);
                         }
                     }
@@ -744,9 +745,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         if (SUCCEEDED(hr))
                         {
                             USES_CONVERSION;
-                            myGiraffe.Merge(OLE2CA(pwsz));
+                            myGiraffe->Merge(OLE2CA(pwsz));
                             CoTaskMemFree(pwsz);
-                            SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe.GetMaxFrames());
+                            SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
                             selected = false;
                             InvalidateRect(hWnd, &clientRect, true);
                         }
@@ -767,31 +768,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_LBUTTONDBLCLK:
         if (flags & DRAW_HIT) {
-            myGiraffe.AddRemoveHitbox(LOWORD(lParam), HIWORD(lParam));
+            myGiraffe->AddRemoveHitbox(LOWORD(lParam), HIWORD(lParam));
             InvalidateRect(hWnd, &clientRect, true);
         }
     case WM_LBUTTONDOWN:
-         selected = myGiraffe.Select(LOWORD(lParam), HIWORD(lParam), flags, false);
+         selected = myGiraffe->Select(LOWORD(lParam), HIWORD(lParam), flags, false);
         break;
     case WM_LBUTTONUP:
-        myGiraffe.Deselect();
+        myGiraffe->Deselect();
         selected = false;
         break;
     case WM_RBUTTONDBLCLK: 
     {
         int index;
-        switch (myGiraffe.CheckIntersect(LOWORD(lParam), HIWORD(lParam), flags, index))
+        switch (myGiraffe->CheckIntersect(LOWORD(lParam), HIWORD(lParam), flags, index))
         {
         case 1:
-            myGiraffe.GetHitboxData(Damage, Force, Knockback, Scale, Fixed, index);
+            myGiraffe->GetHitboxData(Damage, Force, Knockback, Scale, Fixed, index);
             if (DialogBox(hInst, MAKEINTRESOURCE(IDD_HITDLG), hWnd, (DLGPROC)HitProc) == IDOK) {
-                myGiraffe.SetHitboxData(Damage, Force, Knockback, Scale, Fixed, index);
+                myGiraffe->SetHitboxData(Damage, Force, Knockback, Scale, Fixed, index);
             }
             break;
         case 2:
-            Damage = myGiraffe.GetHurtboxData(index);
+            Damage = myGiraffe->GetHurtboxData(index);
             if (DialogBox(hInst, MAKEINTRESOURCE(IDD_HURTDLG), hWnd, (DLGPROC)HurtProc) == IDOK) {
-                myGiraffe.SetHurtboxData(Damage, index);
+                myGiraffe->SetHurtboxData(Damage, index);
             }
             break;
         default:
@@ -800,15 +801,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     case WM_RBUTTONDOWN:
-        selected = myGiraffe.Select(LOWORD(lParam), HIWORD(lParam), flags, true);
+        selected = myGiraffe->Select(LOWORD(lParam), HIWORD(lParam), flags, true);
         break;
     case WM_RBUTTONUP:
-        myGiraffe.Deselect();
+        myGiraffe->Deselect();
         selected = false;
         break;
     case WM_MOUSEMOVE:
         if (selected && timeGetTime() > next) {
-            myGiraffe.Update(LOWORD(lParam), HIWORD(lParam));
+            myGiraffe->Update(LOWORD(lParam), HIWORD(lParam));
             InvalidateRect(hWnd, &clientRect, true);
             next += 50;
         }
@@ -818,27 +819,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int cmd = LOWORD(wParam);
         switch (cmd) {
         case TB_THUMBTRACK:
-            if (!myGiraffe.SetFrame(HIWORD(wParam))) {
-                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+            if (!myGiraffe->SetFrame(HIWORD(wParam))) {
+                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
             }
             InvalidateRect(hWnd, &clientRect, true);
             break;
         case TB_THUMBPOSITION:
-            if (!myGiraffe.SetFrame(HIWORD(wParam))) {
-                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+            if (!myGiraffe->SetFrame(HIWORD(wParam))) {
+                SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
             }
             InvalidateRect(hWnd, &clientRect, true);
             break;
         case TB_LINEDOWN:
-            if (myGiraffe.NextFrame(hWnd, clientRect)) {
-                SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe.GetMaxFrames());
+            if (myGiraffe->NextFrame(hWnd, clientRect)) {
+                SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
             }
-            SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+            SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
             InvalidateRect(hWnd, &clientRect, true);
             break;
         case TB_LINEUP:
-            if (myGiraffe.PrevFrame(hWnd, clientRect)) {
-                //SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe.GetFrameNum());
+            if (myGiraffe->PrevFrame(hWnd, clientRect)) {
+                //SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
                 InvalidateRect(hWnd, &clientRect, true);
             }
             break;
@@ -851,7 +852,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
-            myGiraffe.Draw(hdc, flags, clientRect);
+            myGiraffe->Draw(hdc, flags, clientRect);
             EndPaint(hWnd, &ps);
         }
         break;

@@ -12,17 +12,6 @@ Giraffe::~Giraffe()
 
 Giraffe::Giraffe(int width, int height)
 {
-	Skeleton = { { { {0.0f, -1.0f}, {0.0f, 0.4f}, {-1.0f, -0.4f}, {-0.5f, 1.1f}, {-0.6f, 1.6f}, {-0.35f, 1.2f}, {-0.4f, 1.55f}, {0.35f, 1.1f}, {0.3f, 1.5f}, {0.6f, 1.1f}, {0.6f, 1.6f}, {0.7f, -0.3f}, {0.9f, -1.0f}, {1.1f, -1.3f}, {1.2f, -1.35f} } } };
-	ControlPoints = { { { {-0.5f, 0.0f}, {-0.7f, 0.2f}, {-0.5f, 0.8f}, {-0.3f, 0.8f}, {0.3f, 0.8f}, {0.5f, 0.8f}, {0.7f, 0.2f}, {0.6f, 0.1f}, {0.5f, 0.0f} } } };
-	Children = { { {2,3,4,5,6,7,8,9,10,11,12,13,14}, {0,2,3,4,5,6,7,8,9,10,11,12,13,14}, {}, {4}, {}, {6}, {}, {8}, {}, {10}, {}, {}, {}, {14}, {} } };
-	Parents = { { 1, 0, -1, -2, 3, -3, 5, -4, 7, -5, 9, 0, 0, 0, 13} };
-	Distance = { { 1.0f, 0.0f, 0.36f, 0.3f, 0.5f, 0.3f, 0.5f, 0.3f, 0.5f, 0.3f, 0.5f, 0.5f, 0.5f, 1.0f, 0.3f} };
-
-	Hurtboxes = { {{HurtCollider({1.2f, -1.35f}, 0.25f, 2.0f), HurtCollider({0.9f, -1.0f}, 0.3f, 1.5f), HurtCollider({0.7f, -0.3f}, 0.3f, 1.2f),HurtCollider({0.0f, 0.4f}, 0.7f, 1.0f),HurtCollider({-0.5f, 1.1f}, 0.3f, 0.5f),HurtCollider({0.35f, 1.1f}, 0.3f, 0.5f)}} };
-	Hitboxes = { {} };
-	//HurtRadii = { {{0.1f, }} }
-
-
 	radius = 10;
 	Scale = { 100, 100 };
 	Position = { width / 2.0f, height / 2.0f };
@@ -60,58 +49,13 @@ void Giraffe::Draw(HDC hdc, BYTE flags, const RECT &clientRect)
 	}
 	if (flags & DRAW_OUTLINE) {
 		SelectObject(hdc, LinePen);
-		Vec2 up = (Skeleton[FrameNum][0] - Skeleton[FrameNum][1]).Normalise();
-		Vec2 right = up.GetPerpendicular().Normalise();
+		std::vector<Vec2> Vpoints = GetPoints(FrameNum);
+		std::vector<POINT> points;
+		for (int i = 0; i < Vpoints.size(); ++i) {
+			points.push_back((Position + Scale * Vpoints[i]).ToPoint());
+		}
 
-		Vec2 tailPerp = (Skeleton[FrameNum][2] - ControlPoints[FrameNum][1]).GetPerpendicular().Normalise();
-
-		Vec2 neckSeg1Perp = (Skeleton[FrameNum][11] - ControlPoints[FrameNum][7]).GetPerpendicular().Normalise();
-		Vec2 neckSeg2Perp = (Skeleton[FrameNum][12] - Skeleton[FrameNum][11]).GetPerpendicular().Normalise();
-		Vec2 neckSeg3Perp = (Skeleton[FrameNum][13] - Skeleton[FrameNum][12]).GetPerpendicular().Normalise();
-
-		Vec2 headPerp = (Skeleton[FrameNum][14] - Skeleton[FrameNum][13]).GetPerpendicular().Normalise();
-
-		POINT points[38];
-		points[0] = (Position + Scale * ControlPoints[FrameNum][0]).ToPoint();
-		points[1] = (Position + Scale * ControlPoints[FrameNum][1]).ToPoint();
-		points[2] = (Position + Scale * (Skeleton[FrameNum][2] + -0.3f * tailPerp)).ToPoint();
-		points[3] = (Position + Scale * (Skeleton[FrameNum][2] + 0.3f * tailPerp)).ToPoint();
-		points[4] = (Position + Scale * ControlPoints[FrameNum][1]).ToPoint();
-		points[5] = (Position + Scale * ControlPoints[FrameNum][1]).ToPoint();
-		points[6] = (Position + Scale * ControlPoints[FrameNum][2]).ToPoint();
-		points[7] = (Position + Scale * Skeleton[FrameNum][3]).ToPoint();
-		points[8] = (Position + Scale * Skeleton[FrameNum][4]).ToPoint();
-		points[9] = (Position + Scale * Skeleton[FrameNum][3]).ToPoint();
-		points[10] = (Position + Scale * ControlPoints[FrameNum][2]).ToPoint();
-		points[11] = (Position + Scale * ControlPoints[FrameNum][3]).ToPoint();
-		points[12] = (Position + Scale * Skeleton[FrameNum][5]).ToPoint();
-		points[13] = (Position + Scale * Skeleton[FrameNum][6]).ToPoint();
-		points[14] = (Position + Scale * Skeleton[FrameNum][5]).ToPoint();
-		points[15] = (Position + Scale * ControlPoints[FrameNum][3]).ToPoint();
-		points[16] = (Position + Scale * ControlPoints[FrameNum][4]).ToPoint();
-		points[17] = (Position + Scale * Skeleton[FrameNum][7]).ToPoint();
-		points[18] = (Position + Scale * Skeleton[FrameNum][8]).ToPoint();
-		points[19] = (Position + Scale * Skeleton[FrameNum][7]).ToPoint();
-		points[20] = (Position + Scale * ControlPoints[FrameNum][4]).ToPoint();
-		points[21] = (Position + Scale * ControlPoints[FrameNum][5]).ToPoint();
-		points[22] = (Position + Scale * Skeleton[FrameNum][9]).ToPoint();
-		points[23] = (Position + Scale * Skeleton[FrameNum][10]).ToPoint();
-		points[24] = (Position + Scale * Skeleton[FrameNum][9]).ToPoint();
-		points[25] = (Position + Scale * ControlPoints[FrameNum][5]).ToPoint();
-		points[26] = (Position + Scale * ControlPoints[FrameNum][6]).ToPoint();
-		points[27] = (Position + Scale * (Skeleton[FrameNum][11] + 0.2f * neckSeg1Perp)).ToPoint();
-		points[28] = (Position + Scale * (Skeleton[FrameNum][12] + 0.2f * neckSeg2Perp)).ToPoint();
-		points[29] = (Position + Scale * (Skeleton[FrameNum][13] + 0.2f * neckSeg3Perp)).ToPoint();
-		points[30] = (Position + Scale * (Skeleton[FrameNum][14] + 0.2f * headPerp)).ToPoint();
-		points[31] = (Position + Scale * (2 * Skeleton[FrameNum][14] - Skeleton[FrameNum][13])).ToPoint();
-		points[32] = (Position + Scale * (Skeleton[FrameNum][14] + -0.2f * headPerp)).ToPoint();
-		points[33] = (Position + Scale * (Skeleton[FrameNum][13] + -0.2f * neckSeg3Perp)).ToPoint();
-		points[34] = (Position + Scale * (Skeleton[FrameNum][12] + -0.2f * neckSeg2Perp)).ToPoint();
-		points[35] = (Position + Scale * (Skeleton[FrameNum][11] + -0.2f * neckSeg1Perp)).ToPoint();
-		points[36] = (Position + Scale * ControlPoints[FrameNum][8]).ToPoint();
-		points[37] = (Position + Scale * ControlPoints[FrameNum][0]).ToPoint();
-
-		Polyline(hdc, points, 27);
+		Polyline(hdc, &points[0], 27);
 		PolyBezier(hdc, &points[26], 4);
 		Polyline(hdc, &points[29], 5);
 		PolyBezier(hdc, &points[33], 4);
@@ -138,61 +82,12 @@ void Giraffe::Draw(HDC hdc, BYTE flags, const RECT &clientRect)
 void Giraffe::Serialize(LPCSTR filepath)
 {
 	std::ofstream file(filepath);
-	Vec2 points[38];
 
 	file << "SkelPoints[x] = {";
 	std::string str;
 
 	for (int i = 0; i < Skeleton.size(); ++i) {
-		Vec2 up = (Skeleton[i][0] - Skeleton[i][1]).Normalise();
-		Vec2 right = up.GetPerpendicular().Normalise();
-
-		Vec2 tailPerp = (Skeleton[i][2] - ControlPoints[i][1]).GetPerpendicular().Normalise();
-
-		Vec2 neckSeg1Perp = (Skeleton[i][11] - ControlPoints[i][7]).GetPerpendicular().Normalise();
-		Vec2 neckSeg2Perp = (Skeleton[i][12] - Skeleton[i][11]).GetPerpendicular().Normalise();
-		Vec2 neckSeg3Perp = (Skeleton[i][13] - Skeleton[i][12]).GetPerpendicular().Normalise();
-
-		Vec2 headPerp = (Skeleton[i][14] - Skeleton[i][13]).GetPerpendicular().Normalise();
-
-		points[0] = ControlPoints[i][0];
-		points[1] = ControlPoints[i][1];
-		points[2] = (Skeleton[i][2] + -0.3f * tailPerp);
-		points[3] = (Skeleton[i][2] + 0.3f * tailPerp);
-		points[4] = ControlPoints[i][1];
-		points[5] = ControlPoints[i][1];
-		points[6] = ControlPoints[i][2];
-		points[7] = Skeleton[i][3];
-		points[8] = Skeleton[i][4];
-		points[9] = Skeleton[i][3];
-		points[10] = ControlPoints[i][2];
-		points[11] = ControlPoints[i][3];
-		points[12] = Skeleton[i][5];
-		points[13] = Skeleton[i][6];
-		points[14] = Skeleton[i][5];
-		points[15] = ControlPoints[i][3];
-		points[16] = ControlPoints[i][4];
-		points[17] = Skeleton[i][7];
-		points[18] = Skeleton[i][8];
-		points[19] = Skeleton[i][7];
-		points[20] = ControlPoints[i][4];
-		points[21] = ControlPoints[i][5];
-		points[22] = Skeleton[i][9];
-		points[23] = Skeleton[i][10];
-		points[24] = Skeleton[i][9];
-		points[25] = ControlPoints[i][5];
-		points[26] = ControlPoints[i][6];
-		points[27] = (Skeleton[i][11] + 0.2f * neckSeg1Perp);
-		points[28] = (Skeleton[i][12] + 0.2f * neckSeg2Perp);
-		points[29] = (Skeleton[i][13] + 0.2f * neckSeg3Perp);
-		points[30] = (Skeleton[i][14] + 0.2f * headPerp);
-		points[31] = (2 * Skeleton[i][14] - Skeleton[i][13]);
-		points[32] = (Skeleton[i][14] + -0.2f * headPerp);
-		points[33] = (Skeleton[i][13] + -0.2f * neckSeg3Perp);
-		points[34] = (Skeleton[i][12] + -0.2f * neckSeg2Perp);
-		points[35] = (Skeleton[i][11] + -0.2f * neckSeg1Perp);
-		points[36] = ControlPoints[i][8];
-		points[37] = ControlPoints[i][0];
+		std::vector<Vec2> points = GetPoints(i);
 
 		file << "{{";
 		for (int p = 0; p < 38; ++p) {
@@ -287,23 +182,23 @@ void Giraffe::Load(LPCSTR filepath)
 	Hurtboxes.clear();
 
 	for (int f = 0; f < maxFrames; ++f) {
-		std::array<Vec2, 15> skel;
+		std::vector<Vec2> skel;
 		for (int i = 0; i < skelSize; ++i) {
 			std::getline(file, line);
 			x = std::stof(line);
 			std::getline(file, line);
 			y = std::stof(line);
-			skel[i] = { x, y };
+			skel.push_back({ x, y });
 		}
 		Skeleton.push_back(skel);
 		
-		std::array<Vec2, 9> cp;
+		std::vector<Vec2> cp;
 		for (int i = 0; i < cpSize; ++i) {
 			std::getline(file, line);
 			x = std::stof(line);
 			std::getline(file, line);
 			y = std::stof(line);
-			cp[i] = { x, y };
+			cp.push_back({ x, y });
 		}
 		ControlPoints.push_back(cp);
 
@@ -338,7 +233,6 @@ void Giraffe::Load(LPCSTR filepath)
 			y2 = std::stof(line);
 			std::getline(file, line);
 			dmg = std::stof(line);
-			//revert this once we have fixed all the old files
 			std::getline(file, line);
 			knk = std::stof(line);
 			std::getline(file, line);
@@ -387,7 +281,7 @@ void Giraffe::Merge(LPCSTR filepath)
 	bool fix;
 
 	for (int f = 0; f < maxFrames; ++f) {
-		std::array<Vec2, 15> skel;
+		std::vector<Vec2> skel;
 		for (int i = 0; i < skelSize; ++i) {
 			std::getline(file, line);
 			x = std::stof(line);
@@ -397,7 +291,7 @@ void Giraffe::Merge(LPCSTR filepath)
 		}
 		Skeleton.push_back(skel);
 
-		std::array<Vec2, 9> cp;
+		std::vector<Vec2> cp;
 		for (int i = 0; i < cpSize; ++i) {
 			std::getline(file, line);
 			x = std::stof(line);

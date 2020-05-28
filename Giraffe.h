@@ -18,8 +18,8 @@ enum DrawInputs {
 
 class Giraffe {
 public:
-	Giraffe() {};
-	~Giraffe();
+	//Giraffe() {};
+	virtual ~Giraffe();
 	Giraffe(int width, int height);
 	void Draw(HDC hdc, BYTE flags, const RECT &clientRect);
 	void Serialize(LPCSTR filepath);
@@ -46,22 +46,23 @@ public:
 	void FlipX();
 	void FlipY();
 
+protected:
+	virtual std::vector<Vec2> GetPoints(int i) = 0;
+	std::vector<std::vector<Vec2>> Skeleton;
+	std::vector<std::vector<Vec2>> ControlPoints;
+	std::vector<std::vector<HitCollider>> Hitboxes;
+	std::vector<std::array<HurtCollider, 6>> Hurtboxes;
+
+	std::vector<std::vector<int>> Children;
+	std::vector<int> Parents;
+	std::vector<float> Distance;
+
 private:
 	Vec2 GetParent(int i);
 	bool CaptureImage(HWND hWnd, const RECT& clientRect);
 	bool DisplayImage(HDC hdc, const RECT& clientRect);
 	std::string FloatToString(float f);
 	HBITMAP SavedImage;
-
-	std::vector<std::array<Vec2, 15>> Skeleton;
-	std::vector<std::array<Vec2, 9>> ControlPoints;
-	std::vector<std::vector<HitCollider>> Hitboxes;
-	std::vector<std::array<HurtCollider, 6>> Hurtboxes;
-	//std::vector<std::array<float, 15>> HurtRadii;
-
-	std::array<std::vector<int>, 15> Children;
-	std::array<int, 15> Parents;
-	std::array<float, 15> Distance;
 
 
 	float radius;

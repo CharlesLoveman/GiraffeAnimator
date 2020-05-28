@@ -152,6 +152,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Giraffe.h" />
     <ClInclude Include="GiraffeAnimator.h" />
+    <ClInclude Include="Norm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="targetver.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Giraffe.cpp" />
     <ClCompile Include="GiraffeAnimator.cpp" />
+    <ClCompile Include="Norm.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
