@@ -282,7 +282,7 @@ void Giraffe::Merge(LPCSTR filepath)
 			x = std::stof(line);
 			std::getline(file, line);
 			y = std::stof(line);
-			skel[i] = { x, y };
+			skel.push_back({ x, y });
 		}
 		Skeleton.push_back(skel);
 
@@ -292,7 +292,7 @@ void Giraffe::Merge(LPCSTR filepath)
 			x = std::stof(line);
 			std::getline(file, line);
 			y = std::stof(line);
-			cp[i] = { x, y };
+			cp.push_back({ x, y });
 		}
 		ControlPoints.push_back(cp);
 
