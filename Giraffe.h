@@ -45,6 +45,7 @@ public:
 	void GetHitboxData(float& Damage, Vec2& Force, float& Knockback, float& Scale, bool& Fixed, int i);
 	void FlipX();
 	void FlipY();
+	bool Interpolate(HWND hwnd, const RECT& clientRect);
 
 protected:
 	virtual std::vector<Vec2> GetPoints(int i) = 0;

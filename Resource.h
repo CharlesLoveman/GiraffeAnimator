@@ -33,6 +33,7 @@
 #define IDD_MRGBUTTON			216
 #define IDD_FLXBUTTON			217
 #define IDD_FLYBUTTON			218
+#define IDD_INTPBUTTON			219
 #endif
 // Next default values for new objects
 //
