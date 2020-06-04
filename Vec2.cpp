@@ -55,6 +55,10 @@ float Vec2::Length()
 
 Vec2 Vec2::Normalise()
 {
+	if (x == 0 && y == 0) {
+		return *this;
+	}
+	
 	float temp = 1 / Length();
 	if (isnan(temp)) {
 		return { 0, 0 };

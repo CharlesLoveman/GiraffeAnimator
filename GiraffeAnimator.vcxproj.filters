@@ -45,6 +45,9 @@
     <ClInclude Include="Robot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GiraffeAnimator.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Robot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
