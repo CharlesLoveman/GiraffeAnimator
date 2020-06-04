@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Cool.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Giraffe.h" />
     <ClInclude Include="GiraffeAnimator.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Cool.cpp" />
     <ClCompile Include="Giraffe.cpp" />
     <ClCompile Include="GiraffeAnimator.cpp" />
     <ClCompile Include="Norm.cpp" />
