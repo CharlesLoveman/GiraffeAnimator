@@ -49,6 +49,7 @@ HWND srlzButton;
 HWND instButton;
 HWND dltButton;
 HWND mrgButton;
+HWND intpButton;
 //HWND flxButton;
 //HWND flyButton;
 
@@ -366,6 +367,20 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
        (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
        NULL);      // Pointer not needed.
 
+   intpButton = CreateWindowEx(
+       0,
+       L"BUTTON",  // Predefined class; Unicode assumed 
+       L"Interpolate",      // Button text 
+       WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,  // Styles 
+       950,         // x position 
+       10,         // y position 
+       75,        // Button width
+       20,        // Button height
+       hWnd,     // Parent window
+       (HMENU)IDD_INTPBUTTON,       // No menu.
+       (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
+       NULL);      // Pointer not needed.
+
    //flxButton = CreateWindowEx(
    //    0,
    //    L"BUTTON",  // Predefined class; Unicode assumed 
@@ -582,6 +597,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
                 SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
                 InvalidateRect(hWnd, &clientRect, true);
+                break;
+            case IDD_INTPBUTTON:
+                if (myGiraffe->Interpolate(hWnd, clientRect)) {
+                    SendMessageW(frameBar, TBM_SETRANGEMAX, true, myGiraffe->GetMaxFrames());
+                    SendMessageW(frameBar, TBM_SETPOS, true, myGiraffe->GetFrameNum());
+                    InvalidateRect(hWnd, &clientRect, true);
+                }
                 break;
             /*case IDD_FLXBUTTON:
                 myGiraffe->FlipX();

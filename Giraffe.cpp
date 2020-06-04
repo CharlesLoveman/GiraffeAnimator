@@ -683,6 +683,31 @@ void Giraffe::FlipY()
 	}
 }
 
+bool Giraffe::Interpolate(HWND hwnd, const RECT& clientRect)
+{
+	if (FrameNum == Skeleton.size() - 1) {
+		return false;
+	}
+	CaptureImage(hwnd, clientRect);
+	Updated = false;
+	Skeleton.emplace(Skeleton.begin() + FrameNum + 1, Skeleton[FrameNum]);
+	ControlPoints.emplace(ControlPoints.begin() + FrameNum + 1, ControlPoints[FrameNum]);
+	Hitboxes.emplace(Hitboxes.begin() + FrameNum + 1, Hitboxes[FrameNum]);
+	Hurtboxes.emplace(Hurtboxes.begin() + FrameNum + 1, Hurtboxes[FrameNum]);
+	++FrameNum;
+	for (int i = 0; i < Skeleton[FrameNum].size(); ++i) {
+		Skeleton[FrameNum][i] = 0.5f * (Skeleton[FrameNum][i] + Skeleton[FrameNum + 1][i]);
+	}
+	for (int i = 0; i < ControlPoints[FrameNum].size(); ++i) {
+		ControlPoints[FrameNum][i] = 0.5f * (ControlPoints[FrameNum][i] + ControlPoints[FrameNum + 1][i]);
+	}
+	for (int i = 0; i < Hurtboxes[FrameNum].size(); ++i) {
+		Hurtboxes[FrameNum][i].Position = 0.5f * (Hurtboxes[FrameNum][i].Position + Hurtboxes[FrameNum + 1][i].Position);
+	}
+
+	return true;
+}
+
 Vec2 Giraffe::GetParent(int i)
 {
 	if (Parents[i] >= 0) {
