@@ -6,6 +6,7 @@
 #include "Collider.h"
 #include <vector>
 #include <array>
+#include <string>
 
 enum DrawInputs {
 	DRAW_SKELETON = (1 << 1),

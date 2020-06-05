@@ -381,7 +381,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
        (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
        NULL);      // Pointer not needed.
 
-   //flxButton = CreateWindowEx(
+
+                   //flxButton = CreateWindowEx(
    //    0,
    //    L"BUTTON",  // Predefined class; Unicode assumed 
    //    L"Flip X",      // Button text 
