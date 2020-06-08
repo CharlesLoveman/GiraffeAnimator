@@ -37,47 +37,47 @@ std::vector<Vec2> Cool::GetPoints(int i)
 	Vec2 l4s1Perp = 0.5f * ((Skeleton[i][10] - Skeleton[i][9]).GetPerpendicular().Normalise() + (Skeleton[i][9] - 0.5f * (ControlPoints[i][8] + ControlPoints[i][9])).GetPerpendicular().Normalise());
 	Vec2 l4s2Perp = (Skeleton[i][10] - Skeleton[i][9]).GetPerpendicular().Normalise();
 
-	points.push_back(ControlPoints[i][0]);
-	points.push_back(ControlPoints[i][1]);
-	points.push_back(Skeleton[i][2] + -0.3f * tailPerp);
-	points.push_back(Skeleton[i][2] + 0.3f * tailPerp);
-	points.push_back(ControlPoints[i][1]);
-	points.push_back(ControlPoints[i][2]);
-	points.push_back(Skeleton[i][3] + l1s1Perp * 0.1f);
-	points.push_back(Skeleton[i][4] + l1s2Perp * 0.1f);
-	points.push_back(Skeleton[i][4] - l1s2Perp * 0.1f);
-	points.push_back(Skeleton[i][3] - l1s1Perp * 0.1f);
-	points.push_back(ControlPoints[i][3]);
-	points.push_back(ControlPoints[i][4]);
-	points.push_back(Skeleton[i][5] + l2s1Perp * 0.1f);
-	points.push_back(Skeleton[i][6] + l2s2Perp * 0.1f);
-	points.push_back(Skeleton[i][6] - l2s2Perp * 0.1f);
-	points.push_back(Skeleton[i][5] - l2s1Perp * 0.1f);
-	points.push_back(ControlPoints[i][5]);
-	points.push_back(ControlPoints[i][6]);
-	points.push_back(Skeleton[i][7] + l3s1Perp * 0.1f);
-	points.push_back(Skeleton[i][8] + l3s2Perp * 0.1f);
-	points.push_back(Skeleton[i][8] - l3s2Perp * 0.1f);
-	points.push_back(Skeleton[i][7] - l3s1Perp * 0.1f);
-	points.push_back(ControlPoints[i][7]);
-	points.push_back(ControlPoints[i][8]);
-	points.push_back(Skeleton[i][9] + l4s1Perp * 0.1f);
-	points.push_back(Skeleton[i][10] + l4s2Perp * 0.1f);
-	points.push_back(Skeleton[i][10] - l4s2Perp * 0.1f);
-	points.push_back(Skeleton[i][9] - l4s1Perp * 0.1f);
-	points.push_back(ControlPoints[i][9]);
-	points.push_back(ControlPoints[i][10]);
-	points.push_back(Skeleton[i][11] + 0.2f * neckSeg1Perp);
-	points.push_back(Skeleton[i][12] + 0.2f * neckSeg2Perp);
-	points.push_back(Skeleton[i][13] + 0.2f * neckSeg3Perp);
-	points.push_back(Skeleton[i][14] + 0.2f * headPerp);
-	points.push_back(2 * Skeleton[i][14] - Skeleton[i][13]);
-	points.push_back(Skeleton[i][14] + -0.2f * headPerp);
-	points.push_back(Skeleton[i][13] + -0.2f * neckSeg3Perp);
-	points.push_back(Skeleton[i][12] + -0.2f * neckSeg2Perp);
-	points.push_back(Skeleton[i][11] + -0.2f * neckSeg1Perp);
-	points.push_back(ControlPoints[i][12]);
-	points.push_back(ControlPoints[i][0]);
+	points.push_back(ControlPoints[i][0]);					//0
+	points.push_back(ControlPoints[i][1]);					//1
+	points.push_back(Skeleton[i][2] + -0.3f * tailPerp);	//2
+	points.push_back(Skeleton[i][2] + 0.3f * tailPerp);		//3
+	points.push_back(ControlPoints[i][1]);					//4
+	points.push_back(ControlPoints[i][2]);					//5
+	points.push_back(Skeleton[i][3] + l1s1Perp * 0.1f);		//6
+	points.push_back(Skeleton[i][4] + l1s2Perp * 0.1f);		//7
+	points.push_back(Skeleton[i][4] - l1s2Perp * 0.1f);		//8
+	points.push_back(Skeleton[i][3] - l1s1Perp * 0.1f);		//9
+	points.push_back(ControlPoints[i][3]);					//10
+	points.push_back(ControlPoints[i][4]);					//11
+	points.push_back(Skeleton[i][5] + l2s1Perp * 0.1f);		//12
+	points.push_back(Skeleton[i][6] + l2s2Perp * 0.1f);		//13
+	points.push_back(Skeleton[i][6] - l2s2Perp * 0.1f);		//14
+	points.push_back(Skeleton[i][5] - l2s1Perp * 0.1f);		//15
+	points.push_back(ControlPoints[i][5]);					//16
+	points.push_back(ControlPoints[i][6]);					//17
+	points.push_back(Skeleton[i][7] + l3s1Perp * 0.1f);		//18
+	points.push_back(Skeleton[i][8] + l3s2Perp * 0.1f);		//19
+	points.push_back(Skeleton[i][8] - l3s2Perp * 0.1f);		//20
+	points.push_back(Skeleton[i][7] - l3s1Perp * 0.1f);		//21
+	points.push_back(ControlPoints[i][7]);					//22
+	points.push_back(ControlPoints[i][8]);					//23
+	points.push_back(Skeleton[i][9] + l4s1Perp * 0.1f);		//24
+	points.push_back(Skeleton[i][10] + l4s2Perp * 0.1f);	//25
+	points.push_back(Skeleton[i][10] - l4s2Perp * 0.1f);	//26
+	points.push_back(Skeleton[i][9] - l4s1Perp * 0.1f);		//27
+	points.push_back(ControlPoints[i][9]);					//28
+	points.push_back(ControlPoints[i][10]);					//29
+	points.push_back(Skeleton[i][11] + 0.2f * neckSeg1Perp);//30
+	points.push_back(Skeleton[i][12] + 0.2f * neckSeg2Perp);//31
+	points.push_back(Skeleton[i][13] + 0.2f * neckSeg3Perp);//32
+	points.push_back(Skeleton[i][14] + 0.2f * headPerp);	//33
+	points.push_back(2 * Skeleton[i][14] - Skeleton[i][13]);//34
+	points.push_back(Skeleton[i][14] + -0.2f * headPerp);	//35
+	points.push_back(Skeleton[i][13] + -0.2f * neckSeg3Perp);//36
+	points.push_back(Skeleton[i][12] + -0.2f * neckSeg2Perp);//37
+	points.push_back(Skeleton[i][11] + -0.2f * neckSeg1Perp);//38
+	points.push_back(ControlPoints[i][12]);//39
+	points.push_back(ControlPoints[i][0]);//40
 
 
 

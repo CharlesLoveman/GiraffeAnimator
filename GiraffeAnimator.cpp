@@ -7,6 +7,7 @@
 #include "Norm.h"
 #include "Robot.h"
 #include "Cool.h"
+#include "Posh.h"
 #include <Windows.h>
 #include <timeapi.h>
 #include <CommCtrl.h>
@@ -441,17 +442,23 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    SetFocus(frameBar);
 
 
-   switch (MessageBox(hWnd, L"Be Cool?", L"Class Select", MB_YESNO)) {
+   switch (MessageBox(hWnd, L"Use Posh?", L"Class Select", MB_YESNO)) {
    case IDYES:
-       myGiraffe = new Cool(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+       myGiraffe = new Posh(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
        break;
    default:
-       switch (MessageBox(hWnd, L"Use Robot?", L"Class Select", MB_YESNO)) {
+       switch (MessageBox(hWnd, L"Be Cool?", L"Class Select", MB_YESNO)) {
        case IDYES:
-           myGiraffe = new Robot(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+           myGiraffe = new Cool(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
            break;
        default:
-           myGiraffe = new Norm(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+           switch (MessageBox(hWnd, L"Use Robot?", L"Class Select", MB_YESNO)) {
+           case IDYES:
+               myGiraffe = new Robot(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+               break;
+           default:
+               myGiraffe = new Norm(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top);
+           }
        }
    }
    
